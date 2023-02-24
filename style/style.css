@@ -125,10 +125,10 @@ tr
     color: #131313;
 }
 
-/* form
+form
 {
     z-index: 10;
-} */
+}
 
 @keyframes shake {
     5%, 15%, 25%, 35%, 55%, 65%, 75%, 95% {
