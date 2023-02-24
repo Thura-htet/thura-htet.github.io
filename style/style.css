@@ -95,6 +95,35 @@ h1
     color: #131313;
 }
 
+img
+{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#veille-tech
+{
+    margin: 0;
+    min-height: 100%;
+    background-color: #131313;
+    /* color: rgb(255, 255, 255); */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    color: whitesmoke;
+    text-align: center;
+}
+
+a:link
+{
+    color: whitesmoke;
+}
+
+a:visited
+{
+    color: whitesmoke;
+}
+
 table
 {
     border: none;
@@ -111,6 +140,31 @@ tr
     height: 60vh
 }
 
+.competence-projector table
+{
+    border: none;
+    text-align: center
+}
+
+.competence-projector td 
+{
+    width: 45vh
+}
+
+.competence-projector tr
+{
+    height: 30px
+}
+
+.w3-light-grey
+{
+    background-color: #A0A0A0;
+}
+
+.w3-grey
+{
+    background-color: #808080;
+}
 
 #fin
 {
@@ -121,9 +175,51 @@ tr
 
 #contact
 {
+    margin: 0;
+    min-height: 100%;
+    /* color: rgb(255, 255, 255); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: whitesmoke;
+
     background-color: white;
     color: #131313;
 }
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type=email], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
 
 form
 {
