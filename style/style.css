@@ -33,25 +33,22 @@ section
     color: whitesmoke;
 }
 
+.extra
+{
+    z-index: -10;
+}
+
 h1
 {
     margin: 0; /* eliminates the space between the sections and allow align items to work properly */
     /* color: rgba(13, 13, 13, 0.572); */
 }
 
-#encours
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    color: black;
-}
-
-.rect-container
+.projector
 {
     height: 60vh;
     width: 90vh;
+    opacity: 1;
     /* border: solid 2px whitesmoke; */
     background-color: rgba(255, 255, 255, 0.80);
     color: #131313a8;
@@ -61,13 +58,24 @@ h1
     align-items: center;
     border-radius: 5%;
     animation: shake 2.0s linear infinite;
-    overflow: scroll;
+    overflow: auto;
     -ms-overflow-style: none; 
     scrollbar-width: none;
+    text-align: center;
 }
 
-.rect-container::-webkit-scrollbar { 
+.projector::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
+}
+
+.parcours-projector
+{
+    align-items: start;
+}
+
+#welcome
+{
+    z-index: -1;
 }
 
 #bonjour
@@ -75,6 +83,11 @@ h1
     font-size:  80px;
     color: rgb(247, 246, 242);
     text-shadow: 1px 1px 4px rgb(247,246, 242);
+}
+
+#personal-info
+{
+    z-index: 10;
 }
 
 #parcours
@@ -112,10 +125,10 @@ tr
     color: #131313;
 }
 
-form
+/* form
 {
     z-index: 10;
-}
+} */
 
 @keyframes shake {
     5%, 15%, 25%, 35%, 55%, 65%, 75%, 95% {
