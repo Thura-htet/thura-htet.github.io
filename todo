@@ -1,0 +1,9 @@
+[ ] fix the projector animationn
+[ ] the curtain animation => two divs initial size 0 => 50% horizontally
+[ ] the rolling wheel to describe parcours
+[ ] integrate the sass (for the competences part)
+[ ] Réalisations (stage spotlight?)
+[ ] rolling credits
+
+
+try overflow hidden with two full divs if the current plan doesn't work

@@ -1,5 +1,5 @@
 AOS.init();
-// gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 // gsap.utils.toArray(".test").forEach((test, i) => {
 //   ScrollTrigger.create({
@@ -104,3 +104,8 @@ AOS.init();
 //             scrub: true
 //         }
 //     });
+
+gsap.to(".curtain", 
+    {
+        y: 500
+    })
