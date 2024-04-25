@@ -18,13 +18,16 @@ const BOXES = gsap.utils.toArray('.box')
 
 const LOOP = gsap.timeline({
     paused: true,
-    repeat: -1,
+    repeat: 0,
     ease: 'none',
 })
 
 const SHIFTS = [...BOXES, ...BOXES, ...BOXES]
+console.log(SHIFTS);
 
-SHIFTS.forEach((BOX, index) => {
+SHIFTS.forEach((BOX, index) =>
+{
+    // this callback is for every box
     const BOX_TL = gsap
         .timeline()
         .set(BOX, {
@@ -108,7 +111,67 @@ SHIFTS.forEach((BOX, index) => {
             0
         )
     LOOP.add(BOX_TL, index * STAGGER)
+
+    BOX.addEventListener('mouseover', () => {
+        const zIndex = window.getComputedStyle(BOX).getPropertyValue('z-index');
+        console.log(zIndex, BOXES.length.toString())
+        if (zIndex == BOXES.length.toString())
+        {
+            gsap.to(BOX.children[1], { opacity: 0.2, duration: 0.3 });
+            BOX.style.cursor = "pointer";
+            let active = false;
+            BOX.addEventListener('click', () => {
+                if (!active)
+                {
+                    let click_tl = gsap.timeline();
+                    click_tl
+                        .to(BOX,
+                            { height: "50vmin", width: "50vmin", duration: 0.3 },
+                            "start"
+                        )
+                        .to(BOX.getElementsByClassName("span-div")[0],
+                            {
+                                z: -10
+                            }, "start")
+                        .to(BOX.getElementsByClassName("projet-details")[0],
+                            {
+                                z: -5,
+                            }, "start");
+                }
+
+                else
+                {
+                    let unclick_tl = gsap.timeline();
+                    unclick_tl
+                        .to(BOX,
+                            { height: "20vmin", width: "20vmin", duration: 0.3 },
+                            "start"
+                        )
+                        .to(BOX.getElementsByClassName("span-div")[0],
+                        {
+                            z: -5
+                        }, "start")
+                        .to(BOX.getElementsByClassName("projet-details")[0],
+                            {
+                                z: -10,
+                            }, "start");
+                }
+                active = !active;
+            })
+        }
+    });
+
+    BOX.addEventListener('mouseout', () => {
+        const zIndex = window.getComputedStyle(BOX).getPropertyValue('z-index');
+        if (zIndex == BOXES.length.toString())
+        {
+            gsap.to(BOX.children[1], { opacity: 1, duration: 0.3 });
+            BOX.style.cursor = "auto";
+        }
+    });
 })
+
+
 
 const CYCLE_DURATION = STAGGER * BOXES.length
 const START_TIME = CYCLE_DURATION + DURATION * 0.5 + OFFSET
@@ -122,7 +185,7 @@ const LOOP_HEAD = gsap.fromTo(
         totalTime: `+=${CYCLE_DURATION}`,
         duration: 1,
         ease: 'none',
-        repeat: -1,
+        repeat: 0,
         paused: true,
     }
 )
@@ -143,6 +206,7 @@ const SCRUB = gsap.to(PLAYHEAD, {
     ease: 'power3',
 })
 
+
 let iteration = 0
 const TRIGGER = ScrollTrigger.create({
     start: 0,
@@ -150,26 +214,13 @@ const TRIGGER = ScrollTrigger.create({
     horizontal: false,
     pin: '.boxes',
     onUpdate: self => {
-        const SCROLL = self.scroll()
-        if (SCROLL > self.end - 1) {
-            // Go forwards in time
-            WRAP(1, 1)
-        } else if (SCROLL < 1 && self.direction < 0) {
-            // Go backwards in time
-            WRAP(-1, self.end - 1)
-        } else {
-            const NEW_POS = (iteration + self.progress) * LOOP_HEAD.duration()
-            SCRUB.vars.position = NEW_POS
-            SCRUB.invalidate().restart()
-        }
+        // console.log("iterations : ", iteration)
+        const NEW_POS = (iteration + self.progress) * LOOP_HEAD.duration()
+        // console.log("NEW POS : ", NEW_POS)
+        SCRUB.vars.position = NEW_POS
+        SCRUB.invalidate().restart()
     },
 })
-
-const WRAP = (iterationDelta, scrollTo) => {
-    iteration += iterationDelta
-    TRIGGER.scroll(scrollTo)
-    TRIGGER.update()
-}
 
 const SNAP = gsap.utils.snap(1 / BOXES.length)
 
@@ -189,39 +240,11 @@ const scrollToPosition = position => {
     TRIGGER.scroll(SCROLL)
 }
 
-ScrollTrigger.addEventListener('scrollEnd', () =>
-    scrollToPosition(SCRUB.vars.position)
-)
-
-// functions for buttons there's no need for them
-/*const NEXT = () => scrollToPosition(SCRUB.vars.position - 1 / BOXES.length)
-const PREV = () => scrollToPosition(SCRUB.vars.position + 1 / BOXES.length)*/
-
-document.addEventListener('keydown', event => {
-    if (event.code === 'ArrowLeft' || event.code === 'KeyA') NEXT()
-    if (event.code === 'ArrowRight' || event.code === 'KeyD') PREV()
-})
-
-document.querySelector('.boxes').addEventListener('click', e => {
-    const BOX = e.target.closest('.box')
-    if (BOX) {
-        let TARGET = BOXES.indexOf(BOX)
-        let CURRENT = gsap.utils.wrap(
-            0,
-            BOXES.length,
-            Math.floor(BOXES.length * SCRUB.vars.position)
-        )
-        let BUMP = TARGET - CURRENT
-        if (TARGET > CURRENT && TARGET - CURRENT > BOXES.length * 0.5) {
-            BUMP = (BOXES.length - BUMP) * -1
-        }
-        if (CURRENT > TARGET && CURRENT - TARGET > BOXES.length * 0.5) {
-            BUMP = BOXES.length + BUMP
-        }
-        scrollToPosition(SCRUB.vars.position + BUMP * (1 / BOXES.length))
+ScrollTrigger.addEventListener('scrollEnd', () => {
+        // console.log(SCRUB.vars)
+        scrollToPosition(SCRUB.vars.position)
     }
-})
-
+)
 window.BOXES = BOXES
 
 gsap.set('.box', { display: 'block' })
@@ -229,3 +252,4 @@ gsap.set('.box', { display: 'block' })
 // need to know to, from, toFrom, ScrollTrigger
 // https://gsap.com/docs/v3/Plugins/ScrollTrigger/
 // https://gsap.com/resources/st-mistakes/
+

@@ -1,84 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Album Gallery</title>
-  <style>
-    /* Your CSS styles go here */
-  </style>
-  <link rel="stylesheet" href="coverflow_style.css">
-  <!-- Include GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
-  <!-- Include ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/ScrollTrigger.min.js"></script>
-  <!-- Include Draggable -->
-<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/Draggable.min.js"></script>-->
-</head>
-<body>""
-<section class="boxes">
-  <!-- Album boxes dynamically generated -->
-  <div class="box" style="--src: url('img/mockuuups-imac-mockup-on-a-table-with-a-black-chair.jpeg')">
-    <span>1</span>
-    <img src="img/mockuuups-imac-mockup-on-a-table-with-a-black-chair.jpeg" alt="Album Cover 1">
-  </div>
-  <!-- Repeat for the rest of the album covers -->
-</section>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Gallery</title>
+    <style>
+      /* Your CSS styles go here */
+    </style>
+    <link rel="stylesheet" href="coverflow_style.css">
 
-<svg class="scroll-icon" viewBox="0 0 24 24">
-  <path fill="currentColor" d="M20 6H23L19 2L15 6H18V18H15L19 22L23 18H20V6M9 3.09C11.83 3.57 14 6.04 14 9H9V3.09M14 11V15C14 18.3 11.3 21 8 21S2 18.3 2 15V11H14M7 9H2C2 6.04 4.17 3.57 7 3.09V9Z"/>
-</svg>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,700;0,900;1,300&family=Roboto+Condensed:wght@300;700&family=Roboto+Slab:wght@300;400;500;700;900&family=Roboto:wght@300;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/brittany-signature" rel="stylesheet">
+    <!-- Include GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
+    <!-- Include ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/ScrollTrigger.min.js"></script>
+    <!-- Include Draggable -->
+  <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/Draggable.min.js"></script>-->
+  </head>
+  <body>
+    <section class="boxes">
+      <svg class="scroll-icon" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M20 6H23L19 2L15 6H18V18H15L19 22L23 18H20V6M9 3.09C11.83 3.57 14 6.04 14 9H9V3.09M14 11V15C14 18.3 11.3 21 8 21S2 18.3 2 15V11H14M7 9H2C2 6.04 4.17 3.57 7 3.09V9Z"/>
+      </svg>
 
-<div class="drag-proxy"></div>
+      <div class="box" style="--src: url('img/mockuuups-imac-mockup-on-a-table-with-a-black-chair.jpeg')">
+        <div class="span-div">
+          <span>Voir dvantage</span>
+        </div>
+        <img src="img/mockuuups-imac-mockup-on-a-table-with-a-black-chair.jpeg" alt="Album Cover 1">
+        <div class="projet-details">
+          <h3>Site Vitrine Pour L'exposition d'Antio Gaudí</h3>
+          <h4>
+            Genre : Projet scolaire (Projet AP 1ère année)
+            <br>
+            Date : 2022
+          </h4>
+          <h5>
+            Langages : HTML; CSS; Javascript
+            <br>
+            Outils : Visual Studio Code
+          </h5>
+          <p>
+            Un site vitrine qu'on a créé comme le premier projet de la formation. J'ai essayé de le donné un style
+            modern qui a l'ambience d'un musée.
+          </p>
+        </div>
+      </div>
 
-<script>
-  const COVERS = [
-    /*"https://i.scdn.co/image/ab67616d00001e02d9194aa18fa4c9362b47464f",
-    "https://i.scdn.co/image/ab67616d00001e02a7ea08ab3914c5fb2084a8ac",
-    "https://i.scdn.co/image/ab67616d00001e0213ca80c3035333e5a6fcea59",
-    "https://i.scdn.co/image/ab67616d00001e02df04e6071763615d44643725",
-    "https://i.scdn.co/image/ab67616d00001e0239c7302c04f8d06f60e14403",
-    "https://i.scdn.co/image/ab67616d00001e021c0bcf8b536295438d26c70d",
-    "https://i.scdn.co/image/ab67616d00001e029bbd79106e510d13a9a5ec33",
-    "https://i.scdn.co/image/ab67616d00001e021d97ca7376f835055f828139",
-    "https://www.udiscovermusic.com/wp-content/uploads/2015/10/Kanye-West-Yeezus.jpg"*
-     */
-    "img/68747470733a2f2f676f6f2e676c2f6d4a774e5543.png",
-    "img/CS50AI_pll.png",
-    "img/mockuuups-imac-mockup-on-a-table-with-a-black-chair.jpeg",
-    "img/mockuuups-microsoft-surface-studio-2-mockup-front-light.jpeg",
-    "https://i.scdn.co/image/ab67616d00001e02d9194aa18fa4c9362b47464f",
-    "https://i.scdn.co/image/ab67616d00001e02a7ea08ab3914c5fb2084a8ac",
-    "https://i.scdn.co/image/ab67616d00001e0213ca80c3035333e5a6fcea59",
-    "https://i.scdn.co/image/ab67616d00001e02df04e6071763615d44643725",
-    "https://i.scdn.co/image/ab67616d00001e0239c7302c04f8d06f60e14403",
-    "https://i.scdn.co/image/ab67616d00001e021c0bcf8b536295438d26c70d",
-    "https://i.scdn.co/image/ab67616d00001e029bbd79106e510d13a9a5ec33",
-    "https://i.scdn.co/image/ab67616d00001e021d97ca7376f835055f828139",
-    "https://www.udiscovermusic.com/wp-content/uploads/2015/10/Kanye-West-Yeezus.jpg"
-  ];
+      <div class="box" style="--src: url('img/68747470733a2f2f676f6f2e676c2f6d4a774e5543.png')">
+        <div class="span-div">
+          <span>Voir dvantage</span>
+        </div>
+        <img src="img/68747470733a2f2f676f6f2e676c2f6d4a774e5543.png" alt="Album Cover 1">
+        <div class="projet-details">
+          <h3>CS50: Introduction to Computer Science</h3>
+          <h4>
+            Genre : MOOC
+            <br>
+            Date : 2021
+          </h4>
+          <h5>
+            Langages : C; Python
+            <br>
+            Outils : Visual Studio Code
+          </h5>
+          <p>
+            Un MOOC extrèment populaire pour sa efficacité et sa complexité. C'est le premier cours en informatique qui
+            l'attaquait sériusement. J'ai pu apprendre beaucoup de choses en programmation avec les exercices stimulantes
+            et précises.
+            <br>
+            <br>
+            lien github
+          </p>
+        </div>
+      </div>
 
-  const boxesContainer = document.querySelector('.boxes');
-  const COUNT = 10;
+      <div class="box" style="--src: url('img/CS50AI_pll.png')">
+        <div class="span-div">
+          <span>Voir dvantage</span>
+        </div>
+        <img src="img/CS50AI_pll.png" alt="Album Cover 1">
+        <div class="projet-details">
+          <h3>CS50xAI: Introduction to Artificial Intelligence with Python</h3>
+          <h4>
+            Genre : MOOC
+            <br>
+            Date : 2021
+          </h4>
+          <h5>
+            Langages : Python
+            <br>
+            Outils : Visual Studio Code
+          </h5>
+          <p>
+            Le MOOC que j'ai suivi apès CS50. C'est aussi extrèment direct et efficace dans son approache. J'ai pu
+            devélopper de nombreux projets intéressants en apprenant les principles de l'IA.
+            <br>
+            <br>
+            lien github
+          </p>
+        </div>
+      </div>
 
-  for (let b = 0; b < COUNT; b++) {
-    const box = document.createElement('div');
-    box.classList.add('box');
-    box.style.setProperty('--src', `url(${COVERS[b]})`);
+      <div class="box" style="--src: url('img/mockuuups-microsoft-surface-studio-2-mockup-front-light.jpeg')">
+        <div class="span-div">
+          <span>Voir dvantage</span>
+        </div>
+        <img src="img/mockuuups-microsoft-surface-studio-2-mockup-front-light.jpeg" alt="Album Cover 1">
+        <div class="projet-details">
+          <h3>Devéloppement d'un petit jeu mobil à PID Solutions</h3>
+          <h4>
+            Genre : Stage (BTS - 1ere année)
+            <br>
+            Date : 2023
+          </h4>
+          <h5>
+            Langages : C#
+            <br>
+            Outils et frameworks : Visual Studio; SkiaSharp; .NET Maui
+          </h5>
+          <p>
+            Un jeu mobil de type Dungeons & Dragons pour laquelle j'ai travaillé pendant mon stage. Ma mission est de
+            repositionner les éléments du jeu et surtout de trouver un moyen pour la justification du texte de bout en
+            bout. Mon patron de stage m'a expliqué beaucoup de notions en OOP.
+          </p>
+        </div>
+      </div>
 
-    const span = document.createElement('span');
-    span.textContent = b + 1;
-    box.appendChild(span);
+      <div class="box" style="--src: url('img/Screenshot 2024-04-01 at 17.35.45.jpg')">
+        <div class="span-div">
+          <span>Voir dvantage</span>
+        </div>
+        <img src="img/Screenshot 2024-04-01 at 17.35.45.jpg" alt="Album Cover 1">
+        <div class="projet-details">
+          <h3>L'outil d'impression des étiquettes à MaxiBazar</h3>
+          <h4>
+            Genre : Projet Stage (BTS - 2eme année)
+            <br>
+            Date : 2024
+          </h4>
+          <h5>
+            Langages : Python
+            <br>
+            Outils et frameworks : PyCharm; Tkinter
+          </h5>
+          <p>
+            Ceci est un outil pour créer un document PDF composé des étiquettes de rayons d'après un fichier excel. Cet
+            outil est capable d'imprimer les étiquettes de tout les produits dans le fichier fourni. On peut configurer
+            les dimension du document ainsi que le type de code barre et d'autres options.
+          </p>
+        </div>
+      </div>
 
-    const img = document.createElement('img');
-    img.src = COVERS[b];
-    box.appendChild(img);
+      <div class="drag-proxy"></div>
+    </section>
 
-    boxesContainer.appendChild(box);
-  }
-</script>
 
-<script src="coverflow_script.js"></script>
+    <script>
+      const COVERS = [
+        /*"https://i.scdn.co/image/ab67616d00001e02d9194aa18fa4c9362b47464f",
+        "https://i.scdn.co/image/ab67616d00001e02a7ea08ab3914c5fb2084a8ac",
+        "https://i.scdn.co/image/ab67616d00001e0213ca80c3035333e5a6fcea59",
+        "https://i.scdn.co/image/ab67616d00001e02df04e6071763615d44643725",
+        "https://i.scdn.co/image/ab67616d00001e0239c7302c04f8d06f60e14403",
+        "https://i.scdn.co/image/ab67616d00001e021c0bcf8b536295438d26c70d",
+        "https://i.scdn.co/image/ab67616d00001e029bbd79106e510d13a9a5ec33",
+        "https://i.scdn.co/image/ab67616d00001e021d97ca7376f835055f828139",
+        "https://www.udiscovermusic.com/wp-content/uploads/2015/10/Kanye-West-Yeezus.jpg"*
+         */
+        "img/68747470733a2f2f676f6f2e676c2f6d4a774e5543.png",
+        "img/CS50AI_pll.png",
+        "img/mockuuups-imac-mockup-on-a-table-with-a-black-chair.jpeg",
+        "img/mockuuups-microsoft-surface-studio-2-mockup-front-light.jpeg",
+        "img/Screenshot 2024-04-01 at 17.35.45.jpg",
+      ];
 
-</body>
+      const boxesContainer = document.querySelector('.boxes');
+      const COUNT = COVERS.length;
+
+      for (let b = 0; b < COUNT; b++) {
+        const box = document.createElement('div');
+        box.classList.add('box');
+        box.style.setProperty('--src', `url(${COVERS[b]})`);
+
+        const span = document.createElement('span');
+        // span.textContent = b + 1;
+        span.textContent = "Voir dvantage";
+        box.appendChild(span);
+
+        const img = document.createElement('img');
+        img.src = COVERS[b];
+        box.appendChild(img);
+
+        boxesContainer.appendChild(box);
+      }
+    </script>
+
+    <script src="coverflow_script.js"></script>
+  </body>
 </html>
+
+<!-- TODO : change each box to have a description -->
+<!-- TODO : -->

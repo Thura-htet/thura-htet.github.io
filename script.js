@@ -4,7 +4,7 @@ let competence_tl = gsap.timeline({
         pin: true,
         start: "top top",
         end: "+=250%",
-        markers: true,
+        // markers: true,
         scrub: true,
         id: "competences"
     }
@@ -135,20 +135,22 @@ competence_tl
 // the active class in the scroll trigger tutorial
 
 // ==============================================================================================================
-let veille_tl = gsap.timeline({
+/*let veille_tl = gsap.timeline({
     scrollTrigger: {
         trigger: ".veille-container",
+        toggleActions: "play pause resume none",
         // pin: true,
         start: "top center",
         // end: "+=200%",
-        markers: true,
+        // markers: true,
         // scrub: true,
         id: "veille"
     }
-});
+});*/
 
 // the problem is very likely with over flow
 
+/*
 veille_tl
     .to(".veille-container", {
         width: "100vw",
@@ -158,4 +160,4 @@ veille_tl
     .to(".veille-container", {
         y: "-50vh",
         duration: 0.2
-    })
+    })*/
