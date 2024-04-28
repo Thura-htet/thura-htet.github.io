@@ -136,9 +136,12 @@ SHIFTS.forEach((BOX, index) =>
                         .to(BOX.getElementsByClassName("projet-details")[0],
                             {
                                 z: -5,
+                            }, "start")
+                        .to(BOX.children[1],
+                            {
+                                opacity: 0
                             }, "start");
                 }
-
                 else
                 {
                     let unclick_tl = gsap.timeline();
@@ -154,11 +157,22 @@ SHIFTS.forEach((BOX, index) =>
                         .to(BOX.getElementsByClassName("projet-details")[0],
                             {
                                 z: -10,
+                            }, "start")
+                        .to(BOX.children[1],
+                            {
+                                opacity: 0.2
                             }, "start");
                 }
                 active = !active;
             })
         }
+        BOX.addEventListener("scroll", () => {
+            if (Math.ceil(parseFloat(zIndex)) !== BOXES.length)
+            {
+                gsap.to(BOX,
+                    { height: "20vmin", width: "20vmin", duration: 0.3 })
+            }
+        })
     });
 
     BOX.addEventListener('mouseout', () => {

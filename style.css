@@ -155,7 +155,7 @@ section {
 
 .details {
     font-family: 'Roboto Condensed', 'sans-serif';
-    font-weight: 700;
+    /*font-weight: 700;*/
     height: 60vh;
     width: 22vw;
     /*background-color: #1b1b1b;*/
@@ -173,6 +173,19 @@ section {
     opacity: 0;
     z-index: -1;
     position: absolute;
+}
+
+.detail > h1 {
+    color: #DD1C3E
+}
+
+.detail-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-container > p, .detail-container > ul {
+    flex: 1
 }
 
 .language-active {
@@ -252,15 +265,12 @@ section {
 }
 
 .competences-title {
-    font-family: 'Roboto Condensed', 'sans-serif';
-    font-weight: 700;
-    font-size: 105px;
     position: absolute;
     writing-mode: vertical-lr;
     width: 10vw;
     height: 80vh;
     top: 10vh; left: 83vw;
-    color: red;
+    color: #DD1C3E;
 }
 
 .language {
@@ -282,9 +292,6 @@ section {
 
 .realisations-title {
     background-color: #1a1a1a;
-    font-family: 'Roboto Condensed', 'sans-serif';
-    font-weight: 700;
-    font-size: 105px;
     color: greenyellow;
     height: 20vh;
     text-align: center;
@@ -314,12 +321,12 @@ section {
     margin: 0 10vw 0 10vw;
 }
 
-.artcile-container {
+.article-container {
     margin: 10vh 10vw 10vh 10vw;
 }
 
 .article-container > p {
-    font-size : 12px;
+    font-size : 17px;
 }
 
 /* CONTACT PAGE */
@@ -331,7 +338,7 @@ section {
 }
 
 .contact-container {
-    min-height: 100%;
+    min-height: 80vh;
     margin: 10vh 10vw 10vh 10vw;
     display: flex;
 }
@@ -346,6 +353,8 @@ section {
     font-weight: 700;
     flex: 3;
     margin: 0 2vw 0 2vw;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-title {
@@ -353,11 +362,13 @@ section {
     text-align: left;
     margin-bottom: 8vh;
     font-weight: 700;
+    flex: 0;
 }
 
 .form {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .name-email-container {
@@ -423,6 +434,7 @@ section {
     font-size: 1.5rem;
     font-family: 'Roboto Condensed', 'sans-serif';
     font-weight: 700;
+    color: #DD1C3E;
 }
 
 .contact-info {
@@ -469,4 +481,27 @@ section {
     max-width: 15vw;
 }
 
-/*TODO: add a base level container for all sections */
+.competences-title, .realisations-title, .veille-title {
+    font-family: 'Roboto Condensed', 'sans-serif';
+    font-weight: 700;
+    font-size: 105px;
+}
+
+a:link {
+    color: #DD1C3E;
+    font-weight: 700;
+}
+
+a:visited {
+    color: #DD1C3E;
+    font-weight: 700;
+}
+
+/*
+TODO : style veille technologique part
+TODO : add credits
+TODO : style and proof read compétences and réalisations part
+TODO : maybe add a menu bar
+TODO : add to mes réalisation part
+TODO : fix the margins
+*/
